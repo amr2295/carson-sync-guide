@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devices Tab — Ops Reference Guide</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; color: #1a1a2e; background: #f5f6fa; padding: 32px 24px; }
+h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: #666; margin-bottom: 24px; }
+.step-block { background: #fff; border-radius: 10px; border: 1px solid #e2e5ee; margin-bottom: 28px; overflow: hidden; }
+.step-header { display: flex; align-items: center; gap: 12px; padding: 16px 20px; background: #1a1a2e; color: #fff; }
+.step-num { background: #4f8ef7; color: #fff; font-size: 12px; font-weight: 700; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-title { font-size: 15px; font-weight: 600; }
+.step-body { padding: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: #f0f2f8; color: #444; font-weight: 600; text-align: left; padding: 9px 12px; border-bottom: 2px solid #d8dce8; }
+td { padding: 9px 12px; border-bottom: 1px solid #eef0f6; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafbff; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.badge-error { background: #fde8e8; color: #c0392b; }
+.badge-warn { background: #fef3cd; color: #856404; }
+.badge-ok { background: #e8f5e9; color: #2e7d32; }
+.badge-info { background: #e8f0fe; color: #1a3a6e; }
+.badge-neutral { background: #f0f2f8; color: #444; }
+.badge-purple { background: #f3e8ff; color: #6b21a8; }
+.callout { border-radius: 7px; padding: 11px 14px; margin-bottom: 14px; font-size: 13px; line-height: 1.55; }
+.callout-blue { background: #e8f0fe; border-left: 4px solid #4f8ef7; color: #1a3a6e; }
+.callout-amber { background: #fff8e1; border-left: 4px solid #f0b429; color: #5a3e0a; }
+.callout-red { background: #fdecea; border-left: 4px solid #e53935; color: #7b1010; }
+.callout-green { background: #e8f5e9; border-left: 4px solid #43a047; color: #1b4820; }
+.callout-purple { background: #f3e8ff; border-left: 4px solid #9333ea; color: #6b21a8; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #666; margin: 20px 0 8px; }
+.faq-card { border: 1px solid #e2e5ee; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+.faq-q { padding: 10px 14px; font-weight: 700; font-size: 13px; background: #f0f2f8; border-bottom: 1px solid #e2e5ee; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.faq-q::after { content: '+'; font-size: 16px; color: #666; }
+.faq-q.open::after { content: '−'; }
+.faq-a { padding: 12px 14px; font-size: 13px; line-height: 1.6; display: none; }
+.faq-a.open { display: block; }
+.provider-tab-wrap { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.ptab-btn { border: 1.5px solid #d8dce8; background: #fff; color: #444; font-size: 13px; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 0.15s; }
+.ptab-btn:hover, .ptab-btn.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+.ptab-panel { display: none; }
+.ptab-panel.active { display: block; }
+.screenshot-wrap { border: 1px solid #dde0ef; border-radius: 8px; overflow: hidden; margin: 12px 0 16px; }
+.screenshot-wrap img { width: 100%; display: block; }
+.screenshot-caption { font-size: 11px; color: #888; padding: 6px 10px; background: #f8f9fc; border-top: 1px solid #eef0f6; text-align: center; font-style: italic; }
+.building-tag { display: inline-flex; align-items: center; gap: 4px; background: #eef6ff; border: 1px solid #c3dafe; color: #1e40af; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin: 2px; }
+a { color: #4f8ef7; }
+@media (max-width: 640px) { body { padding: 16px 10px; } .provider-tab-wrap { flex-direction: column; } }
+</style>
+</head>
+<body>
+<h1>Devices Tab &mdash; Ops Reference Guide</h1>
+<p class="subtitle">Support Reference &mdash; Use this guide to understand the Devices tab, explain discrepancies to staff and buildings, and know when to escalate.</p>
+
+<!-- INTRO CALLOUT -->
+<div class="callout callout-blue" style="margin-bottom:24px;">
+<strong>About the Devices Tab</strong><br>
+Carson&rsquo;s Development team released a new <strong>&ldquo;Devices&rdquo;</strong> tab on the web platform that shows a property-level view of all smart locks at buildings using our <strong>Lyazon</strong> integration, as well as many (but not all) buildings using our <strong>Salto</strong> integration. When applicable, the tab shows all connected smart locks, their connectivity, and battery health.<br><br>
+<strong>This tab will ONLY display for buildings using:</strong> Lyazon &bull; Salto (see section below for which Salto buildings)<br><br>
+<strong>This tab does NOT display statuses for:</strong> EagleEye Bridges/Cameras &bull; Intercoms &bull; Brivo Panels/Doors &bull; DormaKaba Door Locks<br><br>
+<strong>Note:</strong> We do NOT (yet) send low-battery notifications to staff users.
+</div>
+
+<!-- STEP 1: What You're Looking At -->
+<div class="step-block">
+<div class="step-header">
+<div class="step-num">1</div>
+<div class="step-title">What You&rsquo;re Looking At &mdash; Tab Overview</div>
+</div>
+<div class="step-body">
+
+<div class="provider-tab-wrap">
+<button class="ptab-btn active" onclick="showPTab('lyazon', this)">&#x1F512; Lyazon Locks</button>
+<button class="ptab-btn" onclick="showPTab('salto', this)">&#x1F510; Salto Locks</button>
+</div>
+
+<!-- LYAZON TAB -->
+<div id="ptab-lyazon" class="ptab-panel active">
+<div class="screenshot-wrap">
+<img src="/lyazon-screenshot.png" alt="Lyazon Locks tab showing 611 total devices, 19 disconnected, 113 low battery" />
+<div class="screenshot-caption">Lyazon Locks tab &mdash; admin.carson.live/devices/lyazon-locks</div>
+</div>
+<div class="callout callout-blue">
+<strong>How Lyazon data is collected:</strong> Carson pings <strong>ALL</strong> Lyazon doorlocks every morning at <strong>3:00 AM EST</strong> to retrieve and display the battery status.
+</div>
+<table>
+<thead>
+<tr><th>Column</th><th>What it means</th><th>Notes for Ops</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Last Update</strong></td>
+<td>The last time Carson received a successful status ping from the lock</td>
+<td><span class="badge badge-warn">Caution</span> If a lock is <strong>not connected</strong>, disregard this column &mdash; use <strong>Last Online</strong> instead</td>
+</tr>
+<tr>
+<td><strong>Last Online</strong></td>
+<td>The most recent time the lock was confirmed online/connected</td>
+<td>This is the most reliable column when a lock shows as disconnected</td>
+</tr>
+<tr>
+<td><strong>Connected</strong></td>
+<td>Current connection status of the lock to the Lyazon cloud</td>
+<td>A lock can show disconnected and still have a battery % &mdash; this is normal (see FAQ)</td>
+</tr>
+<tr>
+<td><strong>Battery State</strong></td>
+<td>Last known battery percentage</td>
+<td>Reflects the battery at the last successful ping &mdash; may be stale if disconnected</td>
+</tr>
+<tr>
+<td><strong>Firmware Version</strong></td>
+<td>Current firmware running on the lock hardware</td>
+<td>Current/most up-to-date firmware (as of May 1, 2026) is <strong>00.15.19</strong> &bull; Newer: <strong>00.18.07</strong> also seen in field</td>
+</tr>
+</tbody>
+</table>
+<div style="margin-top:16px;">
+<div class="callout callout-amber">
+<strong>&#9888;&#65039; Key discrepancy to be aware of:</strong> A lock may show a battery percentage <em>even when disconnected</em>. This is because the battery data was captured at the last successful ping. The percentage shown reflects the battery level at that point in time &mdash; not necessarily right now.
+</div>
+</div>
+</div>
+
+<!-- SALTO TAB -->
+<div id="ptab-salto" class="ptab-panel">
+<div class="screenshot-wrap">
+<img src="/salto-screenshot.png" alt="Salto Locks tab showing 2569 total devices, 2 low battery, all sorted by Last Update with Offline status" />
+<div class="screenshot-caption">Salto Locks tab &mdash; admin.carson.live/devices/salto-locks</div>
+</div>
+<div class="callout callout-red">
+<strong>&#x26A0;&#xFE0F; IMPORTANT:</strong> Not every Salto building will have a compatible system to allow their door locks to be properly recorded in Carson&rsquo;s Devices tab. Only specific buildings are supported.
+</div>
+<div class="section-label">Applicable Buildings</div>
+<table>
+<thead>
+<tr><th>Building</th><th>Which doors show</th><th>Known &ldquo;Last Update&rdquo; discrepancy</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="building-tag">&#x2705; Pearl House</span></td>
+<td>All apartment doors</td>
+<td><span class="badge badge-warn">1hr 2min AHEAD</span> &mdash; &ldquo;Last Update&rdquo; in Carson is consistently <strong>1 hour and 2 minutes ahead</strong> of the most recent door opening in Salto</td>
+</tr>
+<tr>
+<td><span class="building-tag">&#x2705; The Frame</span></td>
+<td>All apartment doors <strong>except</strong> 4D, 2E, and 3x basement doors</td>
+<td><span class="badge badge-info">1&ndash;3min BEHIND</span> &mdash; &ldquo;Last Update&rdquo; in Carson is consistently <strong>1&ndash;3 minutes behind</strong> the most recent door opening in Carson/Salto entry logs</td>
+</tr>
+<tr>
+<td><span class="building-tag">&#x2705; 1700 Jerome</span></td>
+<td>Only apartment 2B and common area doors (per Joey&rsquo;s metabase)</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td><span class="building-tag">&#x2705; Flow Fort Lauderdale</span></td>
+<td>Only 7 of the 800+ apartment doors + 1 staircase door: <em>1523C, 1802D, 2001B, 2202A, 2602D, 3401B, 3401D, FL 02 Stair A</em></td>
+<td>&mdash;</td>
+</tr>
+</tbody>
+</table>
+<div style="margin-top:16px;">
+<div class="callout callout-amber">
+<strong>Inapplicable Buildings (Salto buildings that will NOT show):</strong><br>
+526 Union &bull; [Any other Salto building not listed above]<br>
+If a staff member from one of these buildings asks why their locks don&rsquo;t appear &mdash; that building is not yet compatible. Direct them to email <a href="mailto:support@carson.live">support@carson.live</a> if they want to know why or how to get added.
+</div>
+</div>
+<div style="margin-top:14px;">
+<div class="callout callout-blue">
+<strong>Why do all my Salto doors show &ldquo;Offline&rdquo;?</strong><br>
+This is a known characteristic of how Salto reports lock status to Carson. Salto does not push real-time connectivity data the same way Lyazon does. The &ldquo;Offline&rdquo; status does <strong>not</strong> mean the locks are broken or non-functional &mdash; it reflects a limitation in the integration&rsquo;s data reporting, not the physical lock state.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- STEP 2: Discrepancy Talking Points -->
+<div class="step-block">
+<div class="step-header">
+<div class="step-num">2</div>
+<div class="step-title">Discrepancy Talking Points &mdash; What to Say When Asked</div>
+</div>
+<div class="step-body">
+<div class="callout callout-blue" style="margin-bottom:16px;">
+This section gives Ops the language to use when a building contacts us with questions or concerns about what they see on the Devices tab.
+</div>
+
+<table>
+<thead>
+<tr><th>What they say / ask</th><th>Provider</th><th>Talking point</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>&ldquo;A lock shows disconnected but it still has a battery percentage &mdash; how is that possible?&rdquo;</td>
+<td><span class="badge badge-neutral">Lyazon</span></td>
+<td>The battery percentage shown is from the <strong>last successful ping</strong> (which happens every morning at 3am EST). When a lock goes offline after that, Carson retains the last known battery reading. The percentage is accurate <em>as of the last time we could reach it</em> &mdash; not necessarily right now.</td>
+</tr>
+<tr>
+<td>&ldquo;The &lsquo;Last Update&rsquo; column shows a date from months ago &mdash; is that a problem?&rdquo;</td>
+<td><span class="badge badge-neutral">Lyazon</span></td>
+<td>If a lock is <strong>not connected</strong>, the &ldquo;Last Update&rdquo; column reflects when it was last successfully reached &mdash; this is expected behavior. The <strong>&ldquo;Last Online&rdquo; column</strong> is more meaningful in that case. Please disregard &ldquo;Last Updated&rdquo; for disconnected locks.</td>
+</tr>
+<tr>
+<td>&ldquo;What firmware should our locks be on?&rdquo;</td>
+<td><span class="badge badge-neutral">Lyazon</span></td>
+<td>As of May 1, 2026, the current/most up-to-date firmware is <strong>00.15.19</strong>. Newer firmware <strong>00.18.07</strong> is also being deployed. If your locks are on an older version, please note this and we can look into scheduling a firmware update.</td>
+</tr>
+<tr>
+<td>&ldquo;If a lock is on outdated firmware, will that degrade app performance?&rdquo;</td>
+<td><span class="badge badge-neutral">Lyazon</span></td>
+<td>Outdated firmware can potentially affect reliability, but each case is different. The best step is to flag locks running significantly old firmware so we can assess whether an update is needed.</td>
+</tr>
+<tr>
+<td>&ldquo;The &lsquo;Last Update&rsquo; column looks different across all of my door locks &mdash; why?&rdquo;</td>
+<td><span class="badge badge-purple">Salto</span></td>
+<td>Salto updates happen at the individual door level, not all at once. Each lock&rsquo;s &ldquo;Last Update&rdquo; reflects when Carson last received an event from that specific lock. Differences between units are normal. Also note: depending on the building, the timestamp may be ahead or behind by a few minutes due to a known time-sync offset (see building details in Section 1).</td>
+</tr>
+<tr>
+<td>&ldquo;ALL of my doors show Offline &mdash; are they broken?&rdquo;</td>
+<td><span class="badge badge-purple">Salto</span></td>
+<td><strong>No &mdash; the locks are not broken.</strong> The &ldquo;Offline&rdquo; status for Salto is a known data reporting limitation. Salto does not send real-time connectivity status to Carson the way Lyazon does. This does <strong>not</strong> mean the doors cannot open &mdash; it just means Carson doesn&rsquo;t have live connection visibility for Salto locks at this time.</td>
+</tr>
+<tr>
+<td>&ldquo;My building uses Salto but I don&rsquo;t see any of my locks on this tab&rdquo;</td>
+<td><span class="badge badge-purple">Salto</span></td>
+<td>Not all Salto buildings are currently supported. This tab works for <strong>Pearl House, The Frame, 1700 Jerome,</strong> and <strong>Flow Fort Lauderdale</strong> (limited doors). If your building is not one of these, the Devices tab will not show your locks. If you&rsquo;d like to understand why or request integration, please email <a href="mailto:support@carson.live">support@carson.live</a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- STEP 3: Support Workflow -->
+<div class="step-block">
+<div class="step-header">
+<div class="step-num">3</div>
+<div class="step-title">Support Workflow &mdash; How to Use This Tab When Handling a Ticket</div>
+</div>
+<div class="step-body">
+<div class="callout callout-green">
+<strong>When someone contacts us about a door opening issue:</strong> Checking the Devices tab is a good early step in the process. It can confirm whether a lock is disconnected or has a low battery, which helps narrow down the cause.
+</div>
+
+<div class="section-label">Step-by-Step</div>
+<ol style="margin-left:18px;font-size:13px;line-height:1.9;">
+<li>Navigate to <strong>Operations &rarr; Devices</strong> and select the appropriate tab (<strong>Lyazon Locks</strong> or <strong>Salto Locks</strong>)</li>
+<li>Use the <strong>Select Building</strong> filter to narrow to the building in question</li>
+<li>Find the specific unit/door and check the <strong>Connected</strong> and <strong>Battery State</strong> columns</li>
+<li>If the lock is <strong>disconnected</strong>: check &ldquo;Last Online&rdquo; to understand when it last had connectivity. If it&rsquo;s been a long time, escalate.</li>
+<li>If the battery is <strong>low</strong>: advise building staff to replace the battery. Note: we do not (yet) send automated low-battery alerts.</li>
+</ol>
+
+<div class="callout callout-amber" style="margin-top:16px;">
+<strong>Important caveats:</strong>
+<ul style="margin-left:16px;margin-top:6px;font-size:13px;line-height:1.7;">
+<li>This tab works for <strong>Pearl House, The Frame, and ALL Lyazon buildings</strong></li>
+<li>At Lyazon buildings, this will only show <strong>Lyazon-managed doors</strong>. There may be other doors at the property controlled by Brivo, 2N, Akuvox, etc. that will <strong>NOT</strong> appear here</li>
+<li>For Salto buildings, only the specific doors listed in Section 1 will appear</li>
+</ul>
+</div>
+
+<div class="section-label" style="margin-top:20px;">For Staff Calling or Writing In About This Tab</div>
+<ol style="margin-left:18px;font-size:13px;line-height:1.9;">
+<li>Confirm they are contacting us about an <strong>applicable building</strong> (Lyazon building, or Pearl House / The Frame / 1700 Jerome / Flow Fort Lauderdale for Salto)</li>
+<li>If <strong>inapplicable</strong>: let them know the Devices tab will not display their building&rsquo;s doorlock statuses. If they want to understand <em>why</em> or <em>how</em> to get their locks added to the Devices tab, direct them to email <a href="mailto:support@carson.live">support@carson.live</a></li>
+<li>If <strong>applicable</strong>: use Sections 1 and 2 above to walk them through what they&rsquo;re seeing and address any discrepancies</li>
+</ol>
+</div>
+</div>
+
+<!-- STEP 4: FAQ -->
+<div class="step-block">
+<div class="step-header">
+<div class="step-num">4</div>
+<div class="step-title">FAQ &mdash; Frequently Asked Questions</div>
+</div>
+<div class="step-body">
+
+<div class="section-label">Lyazon</div>
+
+<div class="faq-card">
+<div class="faq-q" onclick="toggleFaq(this)">What does it mean if a Lyazon door lock is &ldquo;disconnected&rdquo;?</div>
+<div class="faq-a">
+A disconnected lock means that during the last daily 3am EST ping, Carson was unable to reach the lock via the Lyazon cloud. This could be due to a WiFi/network issue at the property, the lock hardware losing power, or a temporary Lyazon system issue. It does <strong>not</strong> automatically mean the lock is physically broken &mdash; but it does mean Carson cannot verify its current state. Check the <strong>&ldquo;Last Online&rdquo;</strong> column to see when it was last reachable.
+</div>
+</div>
+
+<div class="faq-card">
+<div class="faq-q" onclick="toggleFaq(this)">How can a lock be disconnected and still display a battery level?</div>
+<div class="faq-a">
+The battery percentage shown is from the <strong>last successful status ping</strong>. Carson stores that reading even after the lock goes offline. So if a lock was at 45% battery the last time Carson reached it, it will continue to show 45% until the lock reconnects and sends a new reading. Always treat the battery percentage of a disconnected lock as <em>last known</em>, not current.
+</div>
+</div>
+
+<div class="faq-card">
+<div class="faq-q" onclick="toggleFaq(this)">What firmware versions should my building&rsquo;s Lyazon doorlocks be on?</div>
+<div class="faq-a">
+As of <strong>May 1, 2026</strong>, the current/most up-to-date firmware versions are <strong>00.15.19</strong> and <strong>00.18.07</strong> (00.18.07 is the newest and is actively being deployed). If your locks are running an older version, please note this and flag it &mdash; it can be addressed in a firmware update cycle.
+</div>
+</div>
+
+<div class="faq-card">
+<div class="faq-q" onclick="toggleFaq(this)">If one of my locks is on outdated firmware, will that degrade app performance?</div>
+<div class="faq-a">
+It can. Older firmware may have bugs or limitations that affect how reliably the lock communicates with the app. While it won&rsquo;t necessarily stop the lock from working, it&rsquo;s best practice to keep firmware up to date. If you&rsquo;re seeing issues with locks on old firmware, that&rsquo;s a signal worth escalating.
+</div>
+</div>
+
+<div class="section-label" style="margin-top:16px;">Salto</div>
+
+<div class="faq-card">
+<div class="faq-q" onclick="toggleFaq(this)">Why does the &ldquo;Last Update&rdquo; column look different across all of my door locks?</div>
+<div class="faq-a">
+Each door lock sends data to Carson independently when it registers an event (like a door opening or a status update). There&rsquo;s no synchronized batch update like with Lyazon. So each lock will show a different &ldquo;Last Update&rdquo; based on its own activity. Additionally, note the known time offsets: <strong>Pearl House</strong> shows timestamps ~1hr 2min ahead of Salto&rsquo;s own logs, and <strong>The Frame</strong> shows timestamps ~1&ndash;3 minutes behind. This is a known quirk of the integration, not a data error.
+</div>
+</div>
+
+<div class="faq-card">
+<div class="faq-q" onclick="toggleFaq(this)">I click into my Devices tab and ALL of my doors show &ldquo;Offline&rdquo; &mdash; why? What can we do?</div>
+<div class="faq-a">
+The &ldquo;Offline&rdquo; status for Salto locks is a <strong>known data reporting limitation</strong> of the current Salto &harr; Carson integration. Salto does not push real-time connectivity status to Carson the way Lyazon does. <strong>This does not mean your locks are non-functional</strong> &mdash; your residents and staff can still open doors normally. If you are experiencing actual door-opening failures, please contact support. If you&rsquo;d like real-time status visibility for your Salto locks to be improved, please email <a href="mailto:support@carson.live">support@carson.live</a> so we can log your request with the product team.
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- SUPPLEMENTAL -->
+<div class="step-block">
+<div class="step-header" style="background:#2c3e6b;">
+<div class="step-title">&#128196; Quick Reference &mdash; Column Definitions by Provider</div>
+</div>
+<div class="step-body">
+
+<div class="section-label">Lyazon Locks &mdash; Available Columns</div>
+<table style="margin-bottom:20px;">
+<thead><tr><th>Column</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td><strong>Building</strong></td><td>The building the lock is assigned to</td></tr>
+<tr><td><strong>Assigned Unit</strong></td><td>The unit/door the lock is attached to (may be blank for common area doors)</td></tr>
+<tr><td><strong>Door Name</strong></td><td>The display name configured for the door in Carson</td></tr>
+<tr><td><strong>Last Update</strong></td><td>Last time Carson received a status update from this lock. <strong>Disregard if lock is disconnected</strong> &mdash; use Last Online instead.</td></tr>
+<tr><td><strong>External ID</strong></td><td>Unique identifier for the lock in the Lyazon system (UUID format)</td></tr>
+<tr><td><strong>Firmware Version</strong></td><td>Current firmware on the physical lock hardware</td></tr>
+<tr><td><strong>Connected</strong></td><td>Whether the lock is currently connected to the Lyazon cloud. Updated at 3am EST daily.</td></tr>
+<tr><td><strong>Battery State</strong></td><td>Last known battery percentage. May be stale if lock is disconnected.</td></tr>
+<tr><td><strong>Last Online</strong></td><td>The most recent confirmed online timestamp for the lock. Use this for disconnected locks.</td></tr>
+</tbody>
+</table>
+
+<div class="section-label">Salto Locks &mdash; Available Columns</div>
+<table>
+<thead><tr><th>Column</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td><strong>Building</strong></td><td>The building the lock is assigned to</td></tr>
+<tr><td><strong>Assigned Unit</strong></td><td>The unit/door the lock is attached to (may be blank for common area doors)</td></tr>
+<tr><td><strong>Door Name</strong></td><td>The display name for the door in Carson/Salto</td></tr>
+<tr><td><strong>Last Update</strong></td><td>Last time Carson received an event/data from this lock. Note known time offsets by building (see Section 1).</td></tr>
+<tr><td><strong>External ID</strong></td><td>Unique identifier for the lock in the Salto system (hex format)</td></tr>
+<tr><td><strong>Battery State</strong></td><td>Battery level descriptor (e.g., &ldquo;Normal&rdquo;, &ldquo;Very low&rdquo;)</td></tr>
+<tr><td><strong>Lock Type</strong></td><td>Type classification of the Salto lock hardware</td></tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+<script>
+function showPTab(tabName, btn) {
+  document.querySelectorAll('.ptab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ptab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('ptab-' + tabName).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleFaq(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>
